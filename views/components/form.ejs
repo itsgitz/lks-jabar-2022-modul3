@@ -1,0 +1,24 @@
+<div class="py-4"></div>
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="shadow-sm p-2">
+      <h4><%= formTitle %></h4>
+    </div>
+    <div class="py-2"></div>
+    <div class="shadow-sm p-3">
+      <form action="<%= formUrl %>" method="post">
+        <div class="form-floating mb-3">
+          <input id="username" type="text" class="form-control form-control-sm disable-outline" placeholder="Username" name="username" required>
+          <label for="username">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input id="password" type="password" class="form-control form-control-sm disable-outline" placeholder="Password" name="password" required>
+          <label for="password">Password</label>
+        </div>
+        <div class="mb-3">
+          <input class="form-control btn btn-success shadow fw-bolder" type="submit" value="<%= formTitle %>">
+        </div>
+      </form>
+    </div> 
+  </div>
+</div>
