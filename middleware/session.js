@@ -3,7 +3,7 @@ const redis = require('redis');
 const connector = require('connect-redis');
 const RedisStore = connector(session);
 
-const redisConnectionUrl = `redis://${process.env.APP_REDIS_HOST}:${process.env.APP_REDIS_PORT}`;
+const redisConnectionUrl = `redis://${process.env.AWS_ELASTIC_CACHE_HOST}:${process.env.AWS_ELASTIC_CACHE_PORT}`;
 const redisClient = redis.createClient({
   url: redisConnectionUrl,
   legacyMode: true

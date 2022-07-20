@@ -8,7 +8,7 @@ router.get('/login', function(req, res, next) {
   });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', async function(req, res, next) {
   const username = req.body.username;
 
   const buff = new Buffer.from(req.body.password);
