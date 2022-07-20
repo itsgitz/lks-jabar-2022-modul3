@@ -1,5 +1,5 @@
 # Installation Guide
-1. Download or clone this repository into your instance system
+1. Download or clone this repository into your EC2 Instance system
 2. Make sure that `pm2` for process manager and `nodejs` (latest LTS version) application server are installed on your system
 3. Install all nodejs dependencies with the following command:
 	 `$ npm install`
