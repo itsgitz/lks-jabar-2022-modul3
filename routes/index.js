@@ -3,12 +3,14 @@ var router = express.Router();
 var database = require('../database/init');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
   console.log(req.session);
-  // database.getNotes(function(data) {
-  // });
 
-  res.render('index', {});
+  let getNotes = await database.getNotes();
+
+  res.render('index', {
+	  notes: getNotes
+  });
 });
 
 router.get('/about', function(req, res, next) {
