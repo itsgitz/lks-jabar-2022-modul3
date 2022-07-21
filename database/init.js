@@ -52,8 +52,8 @@ async function getUsers() {
   return users;
 }
 
-async function getUserByUsername(username) {
-  const query = `SELECT * FROM users WHERE username = ${username}`;
+async function getUserByUsername(username, password) {
+  const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
 
   const queryParams = setQueryParams(query);
   const result = await client.executeStatement(queryParams)
@@ -68,7 +68,7 @@ async function getUserByUsername(username) {
 
   const user = response.parseUsersData(result);
 
-  return user;
+  return user[0];
 }
 
 async function getNotes() {
@@ -85,12 +85,12 @@ async function getNotes() {
     }
   });
 
-  const notes = response.parseUsersData(result);
+  const notes = response.parseNotesData(result);
 
   return notes;
 }
 
-async function insertUsers(username, password) {
+async function insertUser(username, password) {
   const query = `INSERT INTO users (username, password)
     VALUES ('${username}', '${password}')
     RETURNING id

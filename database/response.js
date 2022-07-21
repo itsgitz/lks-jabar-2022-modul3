@@ -26,7 +26,7 @@ function parseNotesData(getNotes) {
     });
   });
 
-  return users;
+  return notes;
 }
 
 module.exports = {

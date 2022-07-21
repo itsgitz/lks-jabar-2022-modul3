@@ -7,6 +7,7 @@ router.get('/', async function(req, res, next) {
   console.log(req.session);
 
   let getNotes = await database.getNotes();
+  console.log('get notes', getNotes);
 
   res.render('index', {
 	  notes: getNotes

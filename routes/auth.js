@@ -3,22 +3,39 @@ var router = express.Router();
 var database = require('../database/init');
 
 router.get('/login', function(req, res, next) { 
+  console.log('session message:', req.session.message);
+  let message;
+  if (!req.session.message) {
+	  message = '';
+  } else {
+	  message = req.session.message
+  }
   res.render('auth/login', {
     formTitle: 'Sign in',
     formUrl: req.originalUrl,
+    message: message
   });
 });
 
-router.post('/login', function(req, res, next) {
-  //database.getUserByUsername(req.body.username);
+router.post('/login', async function(req, res, next) {
   const username = req.body.username;
   const password = req.body.password;
 
   const buff = new Buffer.from(req.body.password);
   const encodedPassword = buff.toString('base64');
 
+  let user = await database.getUserByUsername(username, encodedPassword)
+  console.log(user)
+
+  if (!user) {
+	  req.session.message = 'Username atau password yang anda masukan salah'
+	  return res.redirect('/auth/login');
+  } 
+
   req.session.login = true;
   req.session.username = username;
+
+  req.session.message = '';
 
   return res.redirect('/');
 });
@@ -26,7 +43,8 @@ router.post('/login', function(req, res, next) {
 router.get('/register', function(req, res, next) {
   res.render('auth/register', {
     formTitle: 'Sign up',
-    formUrl: req.originalUrl
+    formUrl: req.originalUrl,
+    message: ''
   });
 });
 
@@ -38,7 +56,7 @@ router.post('/register', async function (req, res, next) {
   console.log('insert user', insertUser)
 
   req.session.login = true;
-  req.session.username = username;
+  req.session.username = req.body.username;
 
   return res.redirect('/');
 })
