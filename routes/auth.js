@@ -50,7 +50,7 @@ router.get('/register', function(req, res, next) {
   }
 
   res.render('auth/register', {
-    formTitle: 'Sign up',
+    formTitle: 'Sign up / Register account',
     formUrl: req.originalUrl,
     message: message
   });
@@ -60,7 +60,7 @@ router.post('/register', async function (req, res, next) {
   let buff = new Buffer.from(req.body.password);
   let password = buff.toString('base64');
 
-  let user = await database.getUserByUsername(req.body.username, encodedPassword)
+  let user = await database.getUserByUsername(req.body.username, password)
   console.log(user)
 
   if (user) {
