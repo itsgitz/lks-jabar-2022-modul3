@@ -8,7 +8,7 @@
 * `APP_ENV` = `production`
 * `APP_ID` = `your-participant-id`
 * `APP_DEVOPS_NAME` = `Your Name`
-* `AWS_REGION` = `us-east-1`
+* `AWS_REGION` = `your-selected-region`
 * `AWS_ELASTIC_CACHE_HOST` = `redis-cluster-host-address`
 * `AWS_ELASTIC_CACHE_PORT` = `redis-cluster-port`
 * `AWS_SECRET_MANAGER_ARN` = `secret-manager-arn`
