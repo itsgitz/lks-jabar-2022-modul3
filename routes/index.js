@@ -13,6 +13,14 @@ router.get('/', async function(req, res, next) {
   });
 });
 
+router.post('/', async function(req, res, next) {
+  let insertNotes = await database.insertNotes(req.body.title, req.body.description);
+
+  console.log(insertNotes);
+
+  return res.redirect('/');
+})
+
 router.get('/about', function(req, res, next) {
   res.render('about', {});
 });

@@ -11,10 +11,7 @@
   <body class="d-flex flex-column min-vh-100">
     <%- include components/navbar %>
     <%- include components/modal %>
-    <div class="container">
-	    <% if (notes.length == 0) { %>
-	    <div>Data not found :(</div>
-	    <% } %>
+    <div class="container"> 
       <div class="shadow-sm p-3">
         <button class="btn btn-sm fw-bold btn-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Add Notes
@@ -22,20 +19,24 @@
       </div>
       <div class="py-3"></div>
       <div class="p-4 fw-light shadow-sm">
-        <div class="py-3 border-bottom border-top">
-          <h3>Title One</h3>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-        </div>
-        <div class="py-2"></div>
-        <div class="py-3 border-bottom border-top">
-          <h3>Title Two</h3>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-        </div>
-        <div class="py-2"></div>
-        <div class="py-3 border-bottom border-top">
-          <h3>Title Three</h3>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-        </div> 
+        <% if (notes.length == 0) { %>
+          <div>Data not found :(</div>
+        <% } else { %>
+          <div class="py-3 border-bottom border-top">
+            <h3>Title One</h3>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+          </div>
+          <div class="py-2"></div>
+          <div class="py-3 border-bottom border-top">
+            <h3>Title Two</h3>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+          </div>
+          <div class="py-2"></div>
+          <div class="py-3 border-bottom border-top">
+            <h3>Title Three</h3>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+          </div> 
+        <% } %>
       </div>
     </div> 
     <%- include components/footer %>

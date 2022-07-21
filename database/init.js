@@ -80,9 +80,82 @@ async function getNotes() {
   return notes;
 }
 
-function insert(data) {
+async function insertUser(username, password) {
+  const begin = client.beginTransaction(dataServiceParams)
+  const query = `INSERT INTO notes (username, password)
+    VALUES ('${username}', '${password}')
+    RETURNING id
+  `
+
+  const queryParams = setQueryParams(query, begin.transactionId);
+  const result = await client.executeStatement(queryParams)
+    .promise()
+    .then((data, err) => {
+      if (err) {
+        throw err;
+      } else {
+        return data.records[0][0].longValue;
+      }
+    });
+
+  const commitTransaction = await client.commitTransaction({
+    resourceArn: dataServiceParams.resourceArn,
+    secretArn: dataServiceParams.secretArn,
+    transactionId: begin.transactionId
+  })
+    .promise()
+    .then((data, err) => {
+      if (err) {
+        throw err;
+      } else {
+        return data;
+      }
+    });
+
+  return {
+    id: result,
+    status: commitTransaction.transactionStatus
+  };
+}
+
+async function insertNotes(title, description) {
+  const begin = client.beginTransaction(dataServiceParams)
+  const query = `INSERT INTO notes (title, description)
+    VALUES ('${title}', '${description}')
+    RETURNING id
+  `
+
+  const queryParams = setQueryParams(query, begin.transactionId);
+  const result = await client.executeStatement(queryParams)
+    .promise()
+    .then((data, err) => {
+      if (err) {
+        throw err;
+      } else {
+        return data.records[0][0].longValue;
+      }
+    });
+
+  const commitTransaction = await client.commitTransaction({
+    resourceArn: dataServiceParams.resourceArn,
+    secretArn: dataServiceParams.secretArn,
+    transactionId: begin.transactionId
+  })
+    .promise()
+    .then((data, err) => {
+      if (err) {
+        throw err;
+      } else {
+        return data;
+      }
+    });
+
+  return {
+    id: result,
+    status: commitTransaction.transactionStatus
+  };
 }
 
 module.exports = {
-  getUsers, getUserByUsername, getNotes
+  getUsers, getUserByUsername, insertUser, getNotes, insertNotes
 }
