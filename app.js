@@ -18,16 +18,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 
-var database = require('./database/init');
-
-database.initDB().then(function(data) {
-  console.log(data);
-  console.log('Connecting to AWS RDS');
-}).catch(function(err) {
-  console.error('Unable to connect to AWS RDS', err);
-});
-
 var app = express();
+
 
 // Show environment variables (for test)
 showVariables()

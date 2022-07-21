@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var database = require('../database/init');
 
 router.get('/login', function(req, res, next) { 
   res.render('auth/login', {
@@ -8,11 +9,13 @@ router.get('/login', function(req, res, next) {
   });
 });
 
-router.post('/login', async function(req, res, next) {
+router.post('/login', function(req, res, next) {
+  //database.getUserByUsername(req.body.username);
   const username = req.body.username;
+  const password = req.body.password;
 
   const buff = new Buffer.from(req.body.password);
-  const password = buff.toString('base64');
+  const encodedPassword = buff.toString('base64');
 
   req.session.login = true;
   req.session.username = username;

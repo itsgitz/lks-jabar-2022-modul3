@@ -42,6 +42,25 @@ async function getUsers() {
   return users;
 }
 
+async function getUserByUsername(username) {
+  const query = `SELECT * FROM users WHERE username = ${username}`;
+
+  const queryParams = setQueryParams(query);
+  const result = await client.executeStatement(queryParams)
+    .promise()
+    .then((data, err) => {
+    if (err) {
+      throw err;
+    } else {
+      return data.records;
+    }
+  });
+
+  const user = response.parseUsersData(result);
+
+  return user;
+}
+
 async function getNotes() {
   const query = `SELECT * FROM notes`;
 
@@ -61,22 +80,9 @@ async function getNotes() {
   return notes;
 }
 
-async function initDB() { 
-  getUsers().then(function(data) {
-          console.log('test data from users table:', data)
-
-  }).catch(function(err) {
-          console.error(err)
-  });
-
-  getNotes().then(function(data) {
-          console.log('test data from notes table', data)
-
-  }).catch(function(err) {
-          console.error(err)
-  }); 
+function insert(data) {
 }
 
 module.exports = {
-  initDB
+  getUsers, getUserByUsername, getNotes
 }
