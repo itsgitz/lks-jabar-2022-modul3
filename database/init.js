@@ -5,7 +5,12 @@ const dataServiceParams = {
   database: process.env.AWS_RDS_DB
 }
 
+const response = require('./response');
+
 const region = process.env.AWS_REGION;
+const client = new AWS.RDSDataService({
+  region: region
+});
 
 const setQueryParams = function (query, transactionId = null) {
   return {
@@ -19,10 +24,6 @@ const setQueryParams = function (query, transactionId = null) {
 }
 
 async function createUserTable() {
-  const client = new AWS.RDSDataService({
-    region: region
-  })
-
   const begin = await client.beginTransaction(dataServiceParams).promise();
   const query = `CREATE TABLE IF NOT EXISTS users (
     id serial PRIMARY KEY,
@@ -62,11 +63,26 @@ async function createUserTable() {
   }
 }
 
-async function createNotesTable() {
-  const client = new AWS.RDSDataService({
-    region: region
-  })
+async function getUsers() {
+  const query = `SELECT * FROM users`;
 
+  const queryParams = setQueryParams(query);
+  const result = await client.executeStatement(queryParams)
+    .promise()
+    then((data, err) => {
+    if (err) {
+      throw err;
+    } else {
+      return data.records;
+    }
+  });
+
+  const users = response.parseUsersData(result);
+
+  return users;
+}
+
+async function createNotesTable() {
   const begin = await client.beginTransaction(dataServiceParams).promise();
   const query = `CREATE TABLE IF NOT EXISTS notes (
     id serial PRIMARY KEY,
@@ -104,6 +120,25 @@ async function createNotesTable() {
     id: result,
     status: commit.transactionStatus
   }
+}
+
+async function getNotes() {
+  const query = `SELECT * FROM notes`;
+
+  const queryParams = setQueryParams(query);
+  const result = await client.executeStatement(queryParams)
+    .promise()
+    then((data, err) => {
+    if (err) {
+      throw err;
+    } else {
+      return data.records;
+    }
+  });
+
+  const notes = response.parseUsersData(result);
+
+  return notes;
 }
 
 async function initDB() {
