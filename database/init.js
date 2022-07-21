@@ -90,14 +90,15 @@ async function getNotes() {
   return notes;
 }
 
-async function insertUser(username, password) {
-  //const begin = client.beginTransaction(dataServiceParams)
+async function insertUsers(username, password) {
   const query = `INSERT INTO users (username, password)
     VALUES ('${username}', '${password}')
     RETURNING id
   `
 
-  const queryParams = setQueryParams(query, begin.transactionId);
+  const queryParams = setQueryParams(query, null);
+  console.log('query params', queryParams)
+
   const result = await client.executeStatement(queryParams)
     .promise()
     .then((data, err) => {
@@ -108,38 +109,19 @@ async function insertUser(username, password) {
       }
     });
 
-  const commitTransaction = await client.commitTransaction({
-    resourceArn: dataServiceParams.resourceArn,
-    secretArn: dataServiceParams.secretArn,
-    transactionId: begin.transactionId
-  })
-    .promise()
-    .then((data, err) => {
-      if (err) {
-        throw err;
-      } else {
-        return data;
-      }
-    });
+  return result;
 
-  return {
-    id: result,
-    status: commitTransaction.transactionStatus
-  };
 }
 
 async function insertNotes(title, description) {
-  //const begin = await client.beginTransaction(dataServiceParams)
   const query = `INSERT INTO notes (title, notes)
     VALUES ('${title}', '${description}')
     RETURNING id
   `
-  //console.log('transaction ID', begin.transactionId);
 
   const queryParams = setQueryParams(query, null);
   console.log('query params', queryParams)
 
-  console.log
   const result = await client.executeStatement(queryParams)
     .promise()
     .then((data, err) => {
@@ -149,20 +131,6 @@ async function insertNotes(title, description) {
         return data.records[0][0].longValue;
       }
     });
-
-  //const commitTransaction = await client.commitTransaction({
-  //  resourceArn: dataServiceParams.resourceArn,
-  //  secretArn: dataServiceParams.secretArn,
-  //  transactionId: begin.transactionId
-  //})
-  //  .promise()
-  //  .then((data, err) => {
-  //    if (err) {
-  //      throw err;
-  //    } else {
-  //      return data;
-  //    }
-  //  });
 
   return result;
 

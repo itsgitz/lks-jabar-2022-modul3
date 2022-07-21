@@ -22,21 +22,15 @@
         <% if (notes.length == 0) { %>
           <div>Notes data not found :(</div>
         <% } else { %>
-          <div class="py-3 border-bottom border-top">
-            <h3>Title One</h3>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-          </div>
-          <div class="py-2"></div>
-          <div class="py-3 border-bottom border-top">
-            <h3>Title Two</h3>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-          </div>
-          <div class="py-2"></div>
-          <div class="py-3 border-bottom border-top">
-            <h3>Title Three</h3>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-          </div> 
+          <% notes.forEach(data => { %>
+            <div class="py-3 border-bottom border-top">
+              <h3><%= data.title %></h3>
+              <div><%= data.notes %></div>
+            </div>
+            <div class="py-2"></div>
+          <% }) %> 
         <% } %>
+        <div class="py-2"></div>
       </div>
     </div> 
     <%- include components/footer %>

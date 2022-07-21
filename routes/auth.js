@@ -30,6 +30,19 @@ router.get('/register', function(req, res, next) {
   });
 });
 
+router.post('/register', async function (req, res, next) {
+  let buff = new Buffer.from(req.body.password);
+  let password = buff.toString('base64');
+  let insertUser = await database.insertUser(req.body.username, password);
+
+  console.log('insert user', insertUser)
+
+  req.session.login = true;
+  req.session.username = username;
+
+  return res.redirect('/');
+})
+
 router.get('/logout', function(req, res, next) {
   req.session.destroy(err => {
     if (err) {
