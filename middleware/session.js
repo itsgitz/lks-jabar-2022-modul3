@@ -1,24 +1,7 @@
 const session = require('express-session');
-//const redis = require('redis');
 const Redis = require('ioredis');
 const connector = require('connect-redis');
 const RedisStore = connector(session);
-
-//const redisConnectionUrl = `redis://${process.env.AWS_ELASTIC_CACHE_HOST}:${process.env.AWS_ELASTIC_CACHE_PORT}`;
-//const redisClient = redis.createClient({
-//  url: redisConnectionUrl,
-//  legacyMode: true
-//});
-
-//redisClient.connect().catch(console.error);
-//
-//redisClient.on('error', function (err) {
-//  console.error(`Could not establish a connection with redis ${err}`);
-//});
-//
-//redisClient.on('connect', function (data) {
-//  console.log('Connected to redis :)', data);
-//});
 
 const redisClient = new Redis.Cluster([{
   port: process.env.AWS_ELASTIC_CACHE_PORT,
