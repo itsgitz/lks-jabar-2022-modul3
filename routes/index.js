@@ -1,6 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var database = require('../database/init');
+const multer  = require('multer')
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'public/images')
+	},
+	filename: function (req, file, cb) {
+		let ext = file.mimetype.split('/')[1];
+
+		cb(null, file.fieldname + '-' + Date.now() + '.' + ext)
+	}
+});
+const upload = multer({ storage: storage })
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -14,9 +26,11 @@ router.get('/', async function(req, res, next) {
   });
 });
 
-router.post('/', async function(req, res, next) {
-  let insertNotes = await database.insertNotes(req.body.title, req.body.description);
+router.post('/', upload.single('image'), async function(req, res, next) {
+  let insertNotes = await database.insertNotes(req.body.title, req.body.description, req.file.filename);
 
+  console.log('upload file', req.file)
+  console.log('upload body', req.body);
   console.log(insertNotes);
 
   return res.redirect('/');

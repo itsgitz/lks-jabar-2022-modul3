@@ -22,7 +22,8 @@ function parseNotesData(getNotes) {
     notes.push({
       id: item[0].longValue,
       title: item[1].stringValue,
-      description: item[2].stringValue
+      description: item[2].stringValue,
+      file: item[3].stringValue
     });
   });
 

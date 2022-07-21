@@ -113,9 +113,9 @@ async function insertUser(username, password) {
 
 }
 
-async function insertNotes(title, description) {
-  const query = `INSERT INTO notes (title, notes)
-    VALUES ('${title}', '${description}')
+async function insertNotes(title, description, file) {
+  const query = `INSERT INTO notes (title, notes, file)
+    VALUES ('${title}', '${description}', '${file}')
     RETURNING id
   `
 
