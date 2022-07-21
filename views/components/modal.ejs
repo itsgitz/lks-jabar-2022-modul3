@@ -6,16 +6,16 @@
         <h5 class="modal-title" id="exampleModalLabel">Add Notes</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="">
+      <form action="/" method="post">
 
         <div class="modal-body">
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="Your notes title">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Your notes title" name='title'>
             <label for="floatingInput">Title</label>
           </div>
 
           <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave your notes here" id="floatingTextarea2" style="height: 300px"></textarea>
+            <textarea class="form-control" placeholder="Leave your notes here" id="floatingTextarea2" style="height: 300px" name='description'></textarea>
             <label for="floatingTextarea2">Notes</label>
           </div>
         </div>

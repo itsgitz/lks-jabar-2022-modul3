@@ -13,14 +13,24 @@ const client = new AWS.RDSDataService({
 });
 
 const setQueryParams = function (query, transactionId = null) {
-  return {
-    resourceArn: dataServiceParams.resourceArn,
-    secretArn: dataServiceParams.secretArn,
-    transactionId: transactionId,
-    database: dataServiceParams.database,
-    sql: query,
-    includeResultMetadata: true
-  }
+	if (!transactionId) {
+		return {
+			resourceArn: dataServiceParams.resourceArn,
+			secretArn: dataServiceParams.secretArn,
+			database: dataServiceParams.database,
+			sql: query,
+			includeResultMetadata: true
+		}
+	} else {
+		return {
+			resourceArn: dataServiceParams.resourceArn,
+			secretArn: dataServiceParams.secretArn,
+			transactionId: transactionId,
+			database: dataServiceParams.database,
+			sql: query,
+			includeResultMetadata: true
+		}
+	}
 }
 
 async function getUsers() {
@@ -81,8 +91,8 @@ async function getNotes() {
 }
 
 async function insertUser(username, password) {
-  const begin = client.beginTransaction(dataServiceParams)
-  const query = `INSERT INTO notes (username, password)
+  //const begin = client.beginTransaction(dataServiceParams)
+  const query = `INSERT INTO users (username, password)
     VALUES ('${username}', '${password}')
     RETURNING id
   `
@@ -119,13 +129,17 @@ async function insertUser(username, password) {
 }
 
 async function insertNotes(title, description) {
-  const begin = client.beginTransaction(dataServiceParams)
-  const query = `INSERT INTO notes (title, description)
+  //const begin = await client.beginTransaction(dataServiceParams)
+  const query = `INSERT INTO notes (title, notes)
     VALUES ('${title}', '${description}')
     RETURNING id
   `
+  //console.log('transaction ID', begin.transactionId);
 
-  const queryParams = setQueryParams(query, begin.transactionId);
+  const queryParams = setQueryParams(query, null);
+  console.log('query params', queryParams)
+
+  console.log
   const result = await client.executeStatement(queryParams)
     .promise()
     .then((data, err) => {
@@ -136,24 +150,22 @@ async function insertNotes(title, description) {
       }
     });
 
-  const commitTransaction = await client.commitTransaction({
-    resourceArn: dataServiceParams.resourceArn,
-    secretArn: dataServiceParams.secretArn,
-    transactionId: begin.transactionId
-  })
-    .promise()
-    .then((data, err) => {
-      if (err) {
-        throw err;
-      } else {
-        return data;
-      }
-    });
+  //const commitTransaction = await client.commitTransaction({
+  //  resourceArn: dataServiceParams.resourceArn,
+  //  secretArn: dataServiceParams.secretArn,
+  //  transactionId: begin.transactionId
+  //})
+  //  .promise()
+  //  .then((data, err) => {
+  //    if (err) {
+  //      throw err;
+  //    } else {
+  //      return data;
+  //    }
+  //  });
 
-  return {
-    id: result,
-    status: commitTransaction.transactionStatus
-  };
+  return result;
+
 }
 
 module.exports = {
