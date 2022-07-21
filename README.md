@@ -3,9 +3,9 @@
 2. Make sure that `pm2` for process manager and `nodejs` (latest LTS version) application server are installed on your system
 3. Create `pm2` startup for generate startup scripts and configure them in order to keep your process list intact across expected or unexpected machine restarts. For create the startup script, run the following command:
 * `$ pm2 startup`
-4. The command above will show the following output:
+4. The command above will show the following **example** output:
 ![alt text](./example-startup.png "Example")
-5. Copy/paste the generated command as shown by the above picture, for example:
+5. Copy/paste the generated command as shown by the above picture, **for example**:
 * `$ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u gitz --hp /home/gitz`
 6. Install all nodejs dependencies with the following command:
 * `$ npm install`
