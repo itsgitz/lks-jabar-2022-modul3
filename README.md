@@ -6,7 +6,7 @@
 * `$ pm2 startup`
 5. The command above will show the following **example** output:
 ![alt text](./example-startup.png "Example")
-6. Copy/paste the generated command as shown by the above picture, **for example**:
+6. Copy/paste the generated command as shown by the above picture to your terminal (EC2 instance system), **for example**:
 * `$ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u gitz --hp /home/gitz`
 7. Install all nodejs dependencies with the following command:
 * `$ npm install`
