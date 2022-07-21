@@ -12,6 +12,7 @@
 * `AWS_ELASTIC_CACHE_HOST` = `redis-cluster-host-address`
 * `AWS_ELASTIC_CACHE_PORT` = `redis-cluster-port`
 * `AWS_SECRET_MANAGER_ARN` = `secret-manager-arn`
+* `AWS_RDS_ARN` = `rds-arn`
 * `AWS_RDS_DB` = `databasename`
 6. Run the command below for build or run your application
 	`$ npm run start`
