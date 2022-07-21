@@ -1,4 +1,4 @@
-# LKS SMK Tingkat Provinsi Jawa Barat Bidang Cloud Computing - Modul 1
+# LKS SMK Tingkat Provinsi Jawa Barat Bidang Cloud Computing - Modul 3
 1. Download or clone this repository into your EC2 Instance system
 2. Make sure that `pm2` for process manager and `nodejs` (latest LTS version) application server are installed on your system
 3. Create `pm2` startup for generate startup scripts and configure them in order to keep your process list intact across expected or unexpected machine restarts. For create the startup script, run the following command:
@@ -14,10 +14,11 @@
 * `APP_ENV` = `production`
 * `APP_ID` = `your-participant-id`
 * `APP_DEVOPS_NAME` = `Your Name`
-* `AWS_REGION` = `us-east-1`
+* `AWS_REGION` = `your-selected-region`
 * `AWS_ELASTIC_CACHE_HOST` = `redis-cluster-host-address`
 * `AWS_ELASTIC_CACHE_PORT` = `redis-cluster-port`
 * `AWS_SECRET_MANAGER_ARN` = `secret-manager-arn`
+* `AWS_RDS_ARN` = `rds-arn`
 * `AWS_RDS_DB` = `databasename`
 9. Run the command below for build or run your application
 	`$ npm run start`
