@@ -23,7 +23,8 @@
 * `AWS_RDS_DB` = `databasename`
 10. Run the command below for build or run your application
 	`$ npm run start`
-11. Important commands for your deployment process:
+11. The application will listen on port `3000`
+12. Important commands for your deployment process:
 * `$ npm run stop` for stop the application on current process
 * `$ npm run ls` show `pm2` list processes
 * `$ npm run log` show your application log for debugging process
