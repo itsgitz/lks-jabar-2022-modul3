@@ -1,5 +1,5 @@
 # LKS SMK Tingkat Provinsi Jawa Barat Bidang Cloud Computing - Modul 3
-1. Make sure that you have created the require tables (**users** and **notes**) on RDS Aurora database. The queries used to create required tables for the project is located: https://gist.github.com/itsgitz/4653491aa53747a0982ce6b781259514
+1. Make sure that you have created the require tables (**users** and **notes**) on RDS Aurora Serverless database. The queries used to create required tables for the project is located: https://gist.github.com/itsgitz/4653491aa53747a0982ce6b781259514
 2. Download or clone this repository into your EC2 Instance machine
 3. Install `pm2` for process manager and `nodejs` (latest LTS version) application server on your EC2 Instance machine
 4. Create `pm2` startup for generate startup scripts and configure them in order to keep your process list intact across expected or unexpected machine restarts. For create the startup script, run the following command:
